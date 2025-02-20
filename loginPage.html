@@ -1,0 +1,263 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <link href="index.html">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/unicons/4.0.8/css/unicons.min.css">
+
+
+    <title>Login & Register Page  ->> Zentronn</title>
+</head>
+
+<body class="someclass">
+    
+
+    <div class="container" id="container">
+        
+
+
+        <div class="form-container sign-in">
+            <form>
+                <h1>Sign In</h1>
+                <div class="social-icons">
+                    <a href="#" class="icons"><i class='bx bxl-google'></i></a>
+                    <a href="#" class="icons"><i class='bx bxl-github'></i></a>
+                </div>
+
+                <span>Login With Email & Password</span>
+                <div class="input-with-icon">
+                    <input type="email" placeholder="Enter E-mail" id="emailInput">
+                    <i class="uil uil-envelope email-icon"></i>
+                    
+                </div>
+                <div class="input-with-icon">
+                    <input type="password" placeholder="Enter Password" id="passwordInput">
+                    <i class="uil uil-eye-slash password-toggle" onclick="togglePasswordVisibility()"></i>
+                </div>
+
+
+                <a href="#">Forget Password?</a>
+                <div id="error-message" class="error-message"></div>
+                <button type="button" id="signInButton" onclick="validateLogin()">Sign In</button>
+
+                <script>
+                    async function validateLogin() {
+                        const email = document.getElementById('emailInput').value;
+                        const password = document.getElementById('passwordInput').value;
+                        const errorMessage = document.getElementById('error-message');
+                        
+                        // Clear previous messages
+                        errorMessage.innerHTML = '';
+                        errorMessage.classList.remove('error', 'success');
+                        
+                        // Email validation
+                        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+                        if (!email) {
+                            showMessage('Please enter your email address.', 'error');
+                            return;
+                        }
+                        if (!emailPattern.test(email)) {
+                            showMessage('Please enter a valid email address.', 'error');
+                            return;
+                        }
+
+                        // Firebase authentication
+                        try {
+                            // First check if user exists
+                            const auth = firebase.auth();
+                            const methods = await auth.fetchSignInMethodsForEmail(email);
+                            
+                            if (methods.length === 0) {
+                                showMessage('Email is not registered. Please sign up first.', 'error');
+                                return;
+                            }
+                            
+                            // If user exists, attempt login
+                            const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                            // User is authenticated
+                            showMessage('Login successful! Redirecting...', 'success');
+                            setTimeout(() => {
+                                window.location.href = 'index.html';
+                            }, 2000);
+                        } catch (error) {
+                            // Handle Firebase authentication errors
+                            let errorMessageText = 'Login failed. ';
+                            switch (error.code) {
+                                case 'auth/wrong-password':
+                                    errorMessageText = 'Incorrect password. Please try again.';
+                                    break;
+                                case 'auth/too-many-requests':
+                                    errorMessageText = 'Too many failed attempts. Please try again later.';
+                                    break;
+                                default:
+                                    errorMessageText = 'Login error. Please try again.';
+                            }
+                            showMessage(errorMessageText, 'error');
+                        }
+
+
+
+                        
+                        // Password validation
+                        if (!password) {
+                            showMessage('Please enter your password.', 'error');
+                            return;
+                        }
+                        if (password.length < 6) {
+                            showMessage('Password must be at least 6 characters.', 'error');
+                            return;
+                        }
+                        
+                        // If all validations pass
+                        showMessage('Login successful! Redirecting...', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 2000);
+
+                    }
+                    
+                    function showMessage(message, type) {
+                        const errorMessage = document.getElementById('error-message');
+                        errorMessage.textContent = message;
+                        errorMessage.classList.remove('error-message', 'success-message');
+                        errorMessage.classList.add(type === 'success' ? 'success-message' : 'error-message');
+                    }
+
+
+                </script>
+
+
+
+                <script>
+                    //email icon
+                    const input = document.querySelector("input"),
+                          emailIcon = document.querySelector(".email-icon")
+                        console.log(input,emailIcon)
+                    input.addEventListener("keyup", ()=>{
+                        let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+            
+                        if(input.value === ""){
+                            emailIcon.classList.replace("uil-check-circle","uil-envelope");
+                            return emailIcon.style.color = "#b4b4b4";
+                        }
+                        if(input.value.match(pattern)){
+                            emailIcon.classList.replace("uil-envelope","uil-check-circle");
+                            return emailIcon.style.color = "#4bb543"
+                        }
+                    
+                        emailIcon.classList.replace("uil-check-circle","uil-envelope");
+                        emailIcon.style.color = "#de0611"
+                        
+
+                    //password icon
+                    const passwordInput = document.getElementById('passwordInput');
+                    const passwordToggle = document.querySelector('.password-toggle');
+                    
+                    function togglePasswordVisibility() {
+                        if (passwordInput.type === 'password') {
+                            passwordInput.type = 'text';
+                            passwordToggle.classList.replace('uil-eye-slash', 'uil-eye');
+                        } else {
+                            passwordInput.type = 'password';
+                            passwordToggle.classList.replace('uil-eye', 'uil-eye-slash');
+                        }
+                    }
+
+                    // Password length validation
+                    passwordInput.addEventListener('input', () => {
+                        if (passwordInput.value.length === 0) {
+                            passwordToggle.style.color = '#b4b4b4'; // Default color
+                        } else if (passwordInput.value.length < 6) {
+                            passwordToggle.style.color = '#de0611'; // Red for invalid
+                        } else {
+                            passwordToggle.style.color = '#4bb543'; // Green for valid
+                        }
+                    });
+
+                    })
+
+
+                </script>
+
+            </form>
+
+        </div>
+<div class="form-container sign-up">
+            <form>
+                <h1>Create Account</h1>
+                <div class="social-icons">
+                    <a href="#" class="icons"><i class='bx bxl-google'></i></a>
+                    <a href="#" class="icons"><i class='bx bxl-github'></i></a>
+                </div>
+                <span>Register with E-mail</span>
+                <input type="text" placeholder="Name" id="registerName">
+                <input type="email" placeholder="Enter E-mail" id="registerEmail">
+                <input type="password" placeholder="Enter Password" id="registerPassword">
+                <button>Sign Up</button>
+            </form>
+        </div>
+        
+
+        
+
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome To <br>Zentronn</h1>
+                    <p>Sign in With ID & Passowrd</p>
+                    <button type="button" class="hidden" id="login">Sign In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Join the exclusive platform</h1>
+                    <p>Join "Zentronn" to get quality products for cheap</p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+
+
+<!-- Load Firebase SDK from CDN -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script>
+  // Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDJrjwbe1PWahx6z0bUgV-M-K-pA5Ey-r4",
+    authDomain: "zentronn-f5696.firebaseapp.com",
+    projectId: "zentronn-f5696",
+    storageBucket: "zentronn-f5696.firebasestorage.app",
+    messagingSenderId: "218333581910",
+    appId: "1:218333581910:web:070212f563d95bafc961f7",
+    measurementId: "G-GC8V4LBKTY"
+  };
+
+  // Initialize Firebase
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  
+  // Make firebase globally available
+  window.firebase = firebase;
+</script>
+
+<!-- Load custom script -->
+<script src="script.js"></script>
+
+
+
+
+
+</body>
+
+</html>

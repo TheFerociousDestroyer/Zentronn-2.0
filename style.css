@@ -1,0 +1,500 @@
+/* Existing CSS styles remain unchanged until the footer section */
+
+
+.footer {
+    background-color: #24262b;
+    width: 100%;
+    padding: 70px 0;
+}
+
+.footer-col {
+    width: 25%;
+    padding: 0 8px;
+    margin: 0;
+}
+
+.footer-col h4 {
+    font-size: 18px;
+    color: #fff;
+    text-transform: capitalize;
+    margin-bottom: 15px;
+    font-weight: 500;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    padding-right: 15px; /* Reduced padding to bring arrow closer */
+}
+
+.footer-col:not(.no-arrow) h4::after {
+    content: '▼';
+    font-size: 12px;
+    position: absolute;
+    right: 5px; /* Moved closer from right: 0 */
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+}
+
+.footer-col.active h4::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+/* Rest of the existing CSS styles remain unchanged */
+
+
+.input-with-icon {
+    position: relative;
+    width: 100%;
+}
+
+.input-with-icon input {
+    padding-left: 40px;
+}
+
+.input-with-icon i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #b4b4b4;
+    pointer-events: none;
+}
+
+.input-with-icon .password-toggle {
+    left: auto;
+    right: 15px;
+    pointer-events: all;
+}
+
+.error-message {
+    font-size: medium;
+    color: darkred;
+    background-color: #f8d7da;
+    border: 1px solid darkred;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.success-message {
+    font-size: medium;
+    color: green;
+    background-color: #d4edda;
+    border: 1px solid green;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.someclass{
+    background-color: rgba(0, 0, 0, 0.795);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#firstText{
+    color: darkred;
+    background-color: #24262b;
+    text-align: center;
+}
+
+
+.container{
+    background-color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.35);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+}
+
+.container p{
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.3px;
+    margin: 20px 0;
+}
+
+.container span{
+    font-size: 12px;
+}
+
+.container a{
+    color: #333;
+    font-size: 13px;
+    text-decoration: none;
+    margin: 15px 0 10px;
+}
+
+.container button{
+    background-color: rgb(255, 13, 13);
+    color: #fff;
+    font-size: 12px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.container button.hidden{
+    background-color: transparent;
+    border-color: #fff;
+}
+
+
+.container form{
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    height: 100%;
+}
+
+.container input{
+    background-color: #eee;
+    border:none;
+    margin: 8px 0;
+    padding: 10px 15px;
+    font-size: 13px;
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+}
+
+.form-container{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+
+.sign-in{
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.container.active .sign-in{
+    transform: translateX(100%);
+}
+
+.sign-up{
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.container.active .sign-up{
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: move 0.6s;
+}
+
+@keyframes move{
+    0%, 49.99%{
+        opacity: 0;
+        z-index: 1;
+    }
+    50%, 100%{
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+.social-icons{
+    margin: 20px 0;
+}
+
+.social-icons a{
+    border: 1px solid #ccc;
+    border-radius: 20%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 px;
+    width: 40px;
+    height: 40px;
+}
+
+.toggle-container{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.6s ease-in-out;
+    border-radius: 20px;
+    z-index: 1000;
+}
+
+.container.active .toggle-container{
+    transform: translateX(-100%);
+    border-radius: 20px;
+}
+
+.toggle{
+    background-color: rgba(255, 4, 4, 0.952);
+    height: 100%;
+    color: #fff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+}
+
+.container.active .toggle{
+    transform: translateX(50%);
+}
+
+.toggle-panel{
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 30px;
+    text-align: center;
+    top: 0;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+}
+
+.toggle-left{
+    transform: translateX(-200%);
+}
+
+.container.active .toggle-left{
+    transform: translateX(0);
+}
+
+.toggle-right{
+    right: 0;
+    transform: translateX(0);
+}
+
+
+
+
+
+.cont{
+    max-width:1170px;
+    margin:auto;
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.footer-col {
+    width: auto;
+    flex: 1;
+    padding: 0 15px;
+    margin: 0;
+    min-width: 150px;
+}
+
+
+ul{
+    list-style: none;
+}
+
+.footer{
+    background-color: #24262b;
+    width: 100%;
+    padding: 70px 0;
+    
+}
+
+
+.footer-col{
+    width: 25%;
+    padding: 0 8px;
+    margin: 0;
+}
+
+
+.footer-col h4{
+    font-size: 18px;
+    color: #fff;
+    text-transform: capitalize;
+    margin-bottom: 15px;
+    font-weight: 500;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    padding-right: 20px;
+}
+
+.footer-col:not(.no-arrow) h4::after {
+    content: '▼';
+    font-size: 12px;
+    position: absolute;
+    right: 5px;
+    top: 60%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+}
+
+
+
+.footer-col.active h4::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+
+
+
+.footer-col h4::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: #e91e63;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+}
+
+.footer-col ul li:not(:last-child){
+    margin-bottom: 10px;
+}
+
+
+.footer-col ul {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 1s;
+    padding: 0 5px;
+}
+
+.footer-col.active ul {
+    max-height: 500px; /* Adjust based on your content */
+    padding: 5px;
+}
+
+
+.footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 300;
+    color: #bbbbbb;
+    display: block;
+    transition: all 0.3s ease;
+    padding: 5px 0;
+}
+
+
+
+
+.footer-col ul li a:hover{
+    color: #ffffff;   
+    padding-left: 8px;
+}
+
+.footer-col .social-links a{
+    display: inline-block;
+    height: 35px;
+    width: 35px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin:0 5px 5px 0;
+    text-align: center;
+    line-height: 35px;
+    border-radius: 50%;
+    color: #ffffff;
+    transition: all 0.5s ease;
+}
+
+
+
+
+.footer-col .social-links a:hover{
+    color: #24262b;
+    background-color: #ffffff;
+}
+
+@media(max-width: 767px){
+    .footer-col{
+        width: 50%;
+        margin-bottom: 30px;
+    }
+    .footer-col ul {
+        max-height: none;
+    }
+    .footer-col.active ul {
+        max-height: none;
+    }
+}
+
+
+@media(max-width: 574px){
+    .footer-col{
+        width: 100%;
+    }
+}
+
+.footerBottom{
+    background-color: #24262b;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+}
+
+
+.footerBottom p{
+    color: white
+}
+
+
+
+
+/* Home link styling */
+.footer-col h4 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.footer-col h4 a:hover {
+    color: inherit;
+}
